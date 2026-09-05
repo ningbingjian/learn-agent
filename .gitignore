@@ -1,10 +1,25 @@
 # ==============================
+# Shared ignore rules for Java, Python, Vue, React, Go, Rust, and more.
+# Rules apply to nested projects unless explicitly rooted with '/'.
+# Keep dependency lockfiles, source code, migrations, and build wrappers.
+# Avoid broad rules such as *.lock, *.json, *.yaml, bin/, or vendor/.
+# Ignoring a path does not untrack files already committed to Git.
+#
 # Operating systems
 # ==============================
 .DS_Store
 ._*
 Thumbs.db
 Desktop.ini
+.AppleDouble
+.LSOverride
+.Spotlight-V100/
+.Trashes/
+.fseventsd/
+ehthumbs.db
+Thumbs.db:encryptable
+$RECYCLE.BIN/
+*.stackdump
 
 # ==============================
 # Editors and IDEs
@@ -19,6 +34,20 @@ out/
 *.swp
 *.swo
 *~
+.fleet/
+.history/
+.settings/
+.classpath
+.project
+.factorypath
+.metadata/
+*.sublime-workspace
+*.swn
+.vs/
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
 
 # ==============================
 # Environment variables / secrets
@@ -28,7 +57,20 @@ out/
 .env.*
 !.env.example
 !.env.*.example
+!.env.sample
+!.env.*.sample
+!.env.template
+!.env.*.template
 .secrets/
+.envrc.local
+.direnv/
+*.key
+*.p12
+*.pfx
+*.jks
+*.keystore
+# Public certificates (*.crt, *.cer, *.pem) may be legitimate source assets.
+# Add exact paths for any private keys stored in PEM files.
 
 # ==============================
 # Logs and temporary files
@@ -38,6 +80,15 @@ logs/
 *.tmp
 *.temp
 .cache/
+tmp/
+temp/
+*.pid
+*.pid.lock
+*.seed
+*.orig
+*.rej
+*.bak
+*.hprof
 
 # ==============================
 # Python
@@ -71,6 +122,31 @@ site/
 *.egg-info/
 .eggs/
 pip-wheel-metadata/
+*.egg
+__pypackages__/
+.Python
+pip-log.txt
+pip-delete-this-directory.txt
+.pdm-python
+.pdm-build/
+.uv-cache/
+.pybuilder/
+.dmypy.json
+dmypy.json
+nosetests.xml
+pytestdebug.log
+*.cover
+*.py,cover
+.benchmarks/
+.scrapy/
+instance/
+celerybeat-schedule*
+celerybeat.pid
+db.sqlite3
+db.sqlite3-journal
+db.sqlite3-shm
+db.sqlite3-wal
+docs/_build/
 
 # Jupyter
 .ipynb_checkpoints/
@@ -81,6 +157,13 @@ pip-wheel-metadata/
 *.class
 target/
 .gradle/
+.kotlin/
+.mvn/timing.properties
+*.war
+*.ear
+*.nar
+# JARs can be checked-in dependencies or wrappers; ignore generated ones
+# via build/ and target/ rather than ignoring every *.jar.
 
 # JVM crash reports
 hs_err_pid*
@@ -91,6 +174,9 @@ dependency-reduced-pom.xml
 release.properties
 pom.xml.releaseBackup
 pom.xml.versionsBackup
+pom.xml.tag
+pom.xml.next
+pom.xml.bak
 .flattened-pom.xml
 
 # Keep Maven/Gradle wrappers and their JAR files in Git.
@@ -102,6 +188,10 @@ pom.xml.versionsBackup
 node_modules/
 .npm/
 .pnpm-store/
+.pnpm-debug.log*
+.yarn-integrity
+.node_repl_history
+.pnp.*
 
 # Yarn cache files; keep Yarn releases/plugins if used.
 .yarn/cache/
@@ -121,12 +211,35 @@ node_modules/
 .svelte-kit/
 .parcel-cache/
 .turbo/
+.rpt2_cache/
+.rts2_cache_cjs/
+.rts2_cache_es/
+.rts2_cache_umd/
+.sass-cache/
+.temp/
+.docusaurus/
+.astro/
+.angular/cache/
+.nx/cache/
+.nx/workspace-data/
+storybook-static/
+web-dist/
+.vercel/
+.netlify/
+.wrangler/
+.serverless/
+.aws-sam/
 
 # Test output
 coverage/
 .nyc_output/
 playwright-report/
 test-results/
+blob-report/
+playwright/.cache/
+cypress/screenshots/
+cypress/videos/
+.vitest/
 
 # Local development overrides
 *.local
@@ -136,3 +249,127 @@ npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
+lerna-debug.log*
+
+# ==============================
+# Go
+# Keep go.mod, go.sum, and intentionally vendored source.
+# ==============================
+*.test
+*.test.exe
+*.prof
+*.pprof
+coverage.out
+coverage.txt
+profile.out
+go.work
+go.work.sum
+# go.work is local by default; remove these two rules for shared workspaces.
+.gocache/
+.gomodcache/
+# Add exact binary output paths per project; bin/ may contain source scripts.
+
+# ==============================
+# Rust
+# target/ is shared with Maven above; keep Cargo.lock for reproducible builds.
+# ==============================
+**/target/
+**/*.rs.bk
+*.rlib
+*.rmeta
+*.profraw
+*.profdata
+tarpaulin-report.html
+
+# ==============================
+# Native build products / C / C++ / Swift
+# ==============================
+*.o
+*.obj
+*.a
+*.lib
+*.so
+*.so.*
+*.dylib
+*.dll
+*.exe
+*.pdb
+*.ilk
+*.dSYM/
+CMakeFiles/
+CMakeCache.txt
+cmake-build-*/
+compile_commands.json
+CTestTestfile.cmake
+cmake_install.cmake
+install_manifest.txt
+.ninja_deps
+.ninja_log
+.build/
+DerivedData/
+xcuserdata/
+*.xcuserstate
+
+# ==============================
+# Other common language tooling
+# ==============================
+# .NET: avoid bin/ because other projects may keep scripts there.
+obj/
+TestResults/
+# PHP: vendor/ remains trackable for projects that intentionally vendor code.
+.phpunit.cache/
+.phpunit.result.cache
+# Ruby / Bundler
+.bundle/
+vendor/bundle/
+.byebug_history
+# Dart / Flutter
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.pub-cache/
+.pub/
+# Elixir / Erlang
+_build/
+erl_crash.dump
+.elixir_ls/
+
+# ==============================
+# Infrastructure / local runtime state
+# Keep Dockerfiles, compose files, infrastructure code, and examples.
+# ==============================
+.terraform/
+*.tfstate
+*.tfstate.*
+*.tfplan
+*.tfvars
+*.tfvars.json
+!*.tfvars.example
+!*.tfvars.json.example
+override.tf
+override.tf.json
+*_override.tf
+*_override.tf.json
+.terraformrc
+terraform.rc
+.vagrant/
+.local/share/
+
+# ==============================
+# Local AI / ML caches and experiment output
+# Keep model/data files trackable unless a project explicitly ignores them.
+# ==============================
+.ipython/
+.jupyter/lab/workspaces/
+.aider.chat.history.md
+.aider.input.history
+.aider.tags.cache.v*/
+wandb/
+mlruns/
+mlartifacts/
+
+# ==============================
+# FlyAI / AgentScope runtime data
+# ==============================
+.agentscope/
+/learn-agent-flyai-backend/workspace/
